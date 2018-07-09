@@ -2,33 +2,45 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { InputFinanceiroReal, InputTelefoneMovel, InputTelefoneFixo } from '../utils/CustomElements'
+import { classButtonPrimary, classButtonSecondary, cssLabel, classInputText, cssFocused } from '../style/styleCSS';
 
 export default class FormElements extends Component {
 
-    state = {
-        open: true,
-        scroll: 'paper',
-    };
+    constructor() {
+        super();
+        this.state = {
+            openModalForm: false,
+            scroll: 'paper',
+        };
+    }
 
-    handleClickOpen = scroll => () => {
-        this.setState({ open: true, scroll });
-    };
+    componentDidMount() {
+        this.props.store.subscribe(() => {
+            this.setState({ openModalForm: this.props.store.getState().form });
+        });
+    }
 
-    handleClose = () => {
-        this.setState({ open: false });
+    /*
+    openModalCadastro = scroll => () => {
+        this.setState({ openModalForm: true, scroll });
+    };
+    */
+
+    closeModalCadastro = () => {
+        this.setState({ openModalForm: false });
     };
 
     render() {
         return (
             <Dialog
-                open={this.state.open}
+                open={this.state.openModalForm}
                 onClose={this.handleClose}
                 scroll={this.state.scroll}
                 aria-labelledby="scroll-dialog-title"
@@ -40,8 +52,15 @@ export default class FormElements extends Component {
                             label="Nome"
                             fullWidth
                             placeholder="Nome"
+                            InputProps={{
+                                classes: {
+                                    input: classInputText,
+                                    focused: cssFocused,
+                                },
+                            }}
                             InputLabelProps={{
                                 shrink: true,
+                                className: cssLabel,
                             }}
                         />
                         <TextField
@@ -96,14 +115,28 @@ export default class FormElements extends Component {
                                 inputComponent: InputTelefoneMovel,
                             }}
                         />
+                        <FormControl>
+                            <InputLabel
+                                FormLabelClasses={{
+                                    root: cssLabel,
+                                    focused: cssFocused,
+                                }}
+                                htmlFor="custom-css-input"
+                            >
+                                Custom CSS
+                            </InputLabel>
+                            <Input
+                                id="custom-css-input"
+                            />
+                        </FormControl>
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
-                        Cancel
+                    <Button className={classButtonSecondary} onClick={this.closeModalCadastro}>
+                        Cancelar
                     </Button>
-                    <Button onClick={this.handleClose} color="primary">
-                        Subscribe
+                    <Button className={classButtonPrimary} onClick={this.closeModalCadastro}>
+                        Salvar
                     </Button>
                 </DialogActions>
             </Dialog>
