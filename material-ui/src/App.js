@@ -9,19 +9,20 @@ class App extends Component {
 
     render() {
         /*
-        <Grid container spacing={24}>
-          <Grid item xs={12} sm={2}>
-            <MenuView />
-          </Grid>
-          <Grid item xs={12} sm={10}>
-            <CalendarioBoxView />
-          </Grid>
-        </Grid>
+        
+        <div>
+            <IndexForm store={this.context.store} />
+        </div>
         */
         return (
-            <div>
-                <IndexForm store={this.context.store} />
-            </div>
+            <Grid container spacing={24}>
+                <Grid item xs={12} sm={2}>
+                    <MenuView />
+                </Grid>
+                <Grid item xs={12} sm={10}>
+                    <CalendarioBoxView />
+                </Grid>
+            </Grid>
         );
     }
 }
