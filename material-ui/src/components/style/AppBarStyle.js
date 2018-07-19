@@ -1,9 +1,16 @@
 const tema = {
-   
-    
+
+
     temaVermelho: {
 
-        button:{
+        checkbox: {
+            color: '#B71C1C',
+            '&$checked': {
+                color: '#C62828',
+            },
+        },
+
+        button: {
             backgroundColor: '#C62828',
             color: '#FFF'
         },
@@ -16,6 +23,14 @@ const tema = {
     },
 
     temaAzul: {
+
+        checkbox: {
+            color: '#0D47A1',
+            '&$checked': {
+                color: '#0D47A1',
+            },
+        },
+
         position: 'relative',
         boxShadow: 'none',
         backgroundColor: '#0D47A1',
